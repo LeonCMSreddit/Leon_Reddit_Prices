@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reddit Crypto Promotion Service</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* --- DEĞİŞKENLER VE GENEL STİLLER --- */
+        :root {
+            --reddit-orange: #FF4500;
+            --dark-bg: #121212;
+            --dark-card: #1A1A1A;
+            --text-primary: #FFFFFF;
+            --text-secondary: #B3B3B3;
+            --border-color: #333333;
+            --success-green: #2ECC71;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--dark-bg);
+            color: var(--text-primary);
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        h1, h2, h3 {
+            font-weight: 700;
+        }
+
+        h2 {
+            font-size: 2.8rem;
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        h2 .highlight {
+            color: var(--reddit-orange);
+        }
+
+        /* --- BUTON STİLLERİ --- */
+        .cta-button {
+            display: inline-block;
+            background-color: var(--reddit-orange);
+            color: var(--text-primary);
+            padding: 15px 35px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 50px;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+            box-shadow: 0 5px 20px rgba(255, 69, 0, 0.4);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px);
+            background-color: #ff571a;
+        }
+        
+        /* --- HERO BÖLÜMÜ (HİZALAMA DÜZELTİLDİ) --- */
+        .hero {
+            position: relative;
+            height: 90vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 0 20px;
+            background-image: linear-gradient(rgba(18, 18, 18, 0.85), rgba(18, 18, 18, 0.95)), url('https://images.unsplash.com/photo-1639322537228-f710d846310a?q=80&w=1932&auto-format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+        
+        .hero-content {
+            width: 100%;
+            max-width: 750px; /* Genişliği biraz artırdık */
+        }
+
+        .hero-content h1 {
+            font-size: 4rem;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 20px;
+        }
+        
+        .hero-content p {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            margin: 0 auto 40px auto;
+        }
+
+        /* --- GÜVEN BANDI (TICKER) BÖLÜMÜ (BAŞLIK EKLENDİ) --- */
+        .trusted-by {
+            background-color: var(--dark-bg);
+            padding: 40px 0;
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+            overflow: hidden;
+        }
+
+        .trusted-by-title {
+            text-align: center;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .marquee-wrapper {
+            position: relative;
+            white-space: nowrap;
+        }
+
+        .marquee-wrapper::before,
+        .marquee-wrapper::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            width: 100px;
+            height: 100%;
+            z-index: 2;
+        }
+
+        .marquee-wrapper::before {
+            left: 0;
+            background: linear-gradient(to right, var(--dark-bg), transparent);
+        }
+
+        .marquee-wrapper::after {
+            right: 0;
+            background: linear-gradient(to left, var(--dark-bg), transparent);
+        }
+
+        .marquee {
+            display: inline-block;
+            animation: marquee 40s linear infinite;
+        }
+
+        .project-tag {
+            display: inline-flex;
+            align-items: center;
+            background-color: var(--dark-card);
+            padding: 10px 20px;
+            border-radius: 50px;
+            margin: 0 15px;
+            border: 1px solid var(--border-color);
+        }
+        
+        .project-tag .check-icon {
+            width: 16px;
+            height: 16px;
+            color: var(--success-green);
+            margin-right: 10px;
+        }
+
+        @keyframes marquee {
+            from { transform: translateX(0%); }
+            to { transform: translateX(-50%); }
+        }
+        
+        /* --- ÖNE ÇIKAN PAKET BÖLÜMÜ --- */
+        .featured-package {
+            padding: 80px 0;
+            background: radial-gradient(circle, #2a2a2a, var(--dark-bg));
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .featured-content {
+            display: flex;
+            align-items: center;
+            gap: 60px;
+        }
+
+        .featured-details {
+            flex: 1;
+        }
+        
+        .featured-badge {
+            display: inline-block;
+            background-color: var(--reddit-orange);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+        
+        .featured-details h2 {
+            text-align: left;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        
+        .featured-details .guarantee {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--success-green);
+            margin-bottom: 30px;
+        }
+
+        .featured-details ul {
+            list-style: none;
+            margin-bottom: 30px;
+        }
+        
+        .featured-details li {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .featured-details li::before {
+            content: '✓';
+            color: var(--reddit-orange);
+            font-weight: 700;
+            margin-right: 10px;
+        }
+
+        .featured-price-cta {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .featured-price {
+            font-size: 3rem;
+            font-weight: 800;
+        }
+
+        .featured-visual {
+            flex: 0.8;
+            text-align: center;
+        }
+        
+        .featured-visual .icon {
+            width: 200px;
+            height: 200px;
+            color: var(--reddit-orange);
+            opacity: 0.5;
+        }
+        
+        /* --- FİYATLANDIRMA BÖLÜMÜ --- */
+        .pricing {
+            padding: 100px 0;
+            background-color: #161616;
+        }
+        
+        /* Diğer CSS kodları aynı kalır... */
+        .pricing-grid { display: flex; justify-content: center; align-items: stretch; gap: 30px; flex-wrap: wrap; }
+        .pricing-card { background-color: var(--dark-card); border: 1px solid var(--border-color); border-radius: 15px; padding: 40px; width: 100%; max-width: 360px; display: flex; flex-direction: column; transition: transform 0.3s ease, box-shadow 0.3s ease; }
+        .pricing-card:hover { transform: translateY(-10px); }
+        .pricing-card.popular { border-color: var(--reddit-orange); box-shadow: 0 0 40px rgba(255, 69, 0, 0.3); }
+        .pricing-card h3 { font-size: 1.8rem; text-align: center; }
+        .pricing-card .price { font-size: 3.5rem; font-weight: 800; color: var(--reddit-orange); text-align: center; margin: 20px 0; }
+        .pricing-card .price.flexible { font-size: 1.8rem; color: var(--text-primary); }
+        .pricing-card ul { list-style: none; margin-bottom: 40px; flex-grow: 1; }
+        .pricing-card li { color: var(--text-secondary); margin-bottom: 15px; display: flex; align-items: center; }
+        .pricing-card li::before { content: '✓'; color: var(--reddit-orange); font-weight: 700; font-size: 1.2rem; margin-right: 10px; }
+        .pricing-card li.custom-item { justify-content: space-between; }
+        .pricing-card li.custom-item::before { content: '>'; }
+        .pricing-card li strong { color: var(--text-primary); }
+        .pricing-card .cta-button { text-align: center; width: 100%; background-color: #333; box-shadow: none; }
+        .pricing-card.popular .cta-button { background-color: var(--reddit-orange); box-shadow: 0 5px 20px rgba(255, 69, 0, 0.4); }
+        
+        .faq { padding: 100px 0; }
+        .faq-item { background: var(--dark-card); margin-bottom: 10px; border-radius: 10px; border: 1px solid var(--border-color); }
+        .faq-item summary { font-size: 1.2rem; font-weight: 600; padding: 20px; cursor: pointer; list-style: none; position: relative; }
+        .faq-item summary::after { content: '+'; font-size: 2rem; position: absolute; right: 20px; top: 50%; transform: translateY(-50%); transition: transform 0.3s ease; }
+        .faq-item[open] summary::after { transform: translateY(-50%) rotate(45deg); }
+        .faq-item p { padding: 0 20px 20px 20px; color: var(--text-secondary); line-height: 1.7; }
+        
+        .footer { padding: 60px 20px; text-align: center; background-color: var(--dark-card); border-top: 1px solid var(--border-color); }
+        .footer h2 { font-size: 2.2rem; margin-bottom: 30px; }
+        .footer p { color: var(--text-secondary); margin-top: 40px; }
+
+        /* --- MOBİL UYUMLULUK --- */
+        @media (max-width: 992px) {
+            .featured-content { flex-direction: column; text-align: center; }
+            .featured-details h2 { text-align: center; }
+            .featured-price-cta { justify-content: center; }
+            .featured-visual { margin-top: 40px; }
+        }
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem !important; }
+            h2 { font-size: 2rem; }
+            .hero { height: auto; padding: 150px 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="hero">
+        <div class="hero-content">
+            <h1>Your Crypto Deserves the <span class="highlight">Reddit Boost</span>.</h1>
+            <p>Harness the power of Reddit to propel your project to the moon. Targeted promotion, guaranteed visibility, real engagement.</p>
+            <a href="https://t.me/LeonCMS" target="_blank" class="cta-button">BOOST YOUR PROJECT NOW</a>
+        </div>
+    </header>
+    
+    <section class="trusted-by">
+        <h3 class="trusted-by-title">Trusted By Leading Projects</h3>
+        <div class="marquee-wrapper">
+            <div class="marquee">
+                <div class="project-tag"><svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> $HEGE</div>
+                <div class="project-tag"><svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> $TASSHUB</div>
+                <div class="project-tag"><svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> $PYRATE</div>
+                <div class="project-tag"><svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> $WOLF</div>
+                <div class="project-tag"><svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> $PLATH</div>
+                <div class="project-tag"><svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> $ARK</div>
+                <div class="project-tag"><svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> $CATBAT</div>
+                <div class="project-tag"><svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> $HEGE</div>
+                <div class="project-tag"><svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> $TASSHUB</div>
+                <div class="project-tag"><svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> $PYRATE</div>
+                <div class="project-tag"><svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> $WOLF</div>
+                <div class="project-tag"><svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> $PLATH</div>
+                <div class="project-tag"><svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> $ARK</div>
+                <div class="project-tag"><svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> $CATBAT</div>
+            </div>
+        </div>
+    </section>
+
+    <main>
+        <section id="featured-package" class="featured-package">
+            <div class="container">
+                <div class="featured-content">
+                    <div class="featured-details">
+                        <span class="featured-badge">MAXIMUM EXPOSURE</span>
+                        <h2>The Diamond Package</h2>
+                        <p class="guarantee">Guaranteed 100,000+ Views</p>
+                        <ul>
+                            <li>1 CryptoMoonShots Post</li>
+                            <li>CMS Post Going to Monthly #1-5 Trending Spot</li>
+                            <li>Posts in 45 High-Impact Crypto Subreddits</li>
+                            <li>200 Upvotes For Each Subreddit Post</li>
+                            <li>4 Comments Per Post With Good Accounts</li>
+                        </ul>
+                        <div class="featured-price-cta">
+                            <div class="featured-price">$235</div>
+                            <a href="https://t.me/LeonCMS" target="_blank" class="cta-button">Claim This Offer</a>
+                        </div>
+                    </div>
+                    <div class="featured-visual">
+                        <svg class="icon" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M6.01,21.37,4.2,18.1,5,11.39,11.3,3.34a1,1,0,0,1,1.4,0L20,10.25a1,1,0,0,1,0,1.42L12.6,18.42,6.13,22A1,1,0,0,1,6.01,21.37ZM5.61,17.4l1.2,2.2,4.52-2.83L17.58,11,12,5.1Z"/></svg>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="pricing" class="pricing">
+            <div class="container">
+                <h2>Our Other <span class="highlight">Packages</span></h2>
+                <div class="pricing-grid">
+                    <div class="pricing-card">
+                        <h3>Starter Boost</h3>
+                        <p class="price">$35</p>
+                        <ul>
+                            <li>1 CryptoMoonShots Post</li>
+                            <li>CMS Hot Rank 3 Push</li>
+                            <li>Post in 25 Subreddits</li>
+                            <li>30 Upvotes per post</li>
+                        </ul>
+                        <a href="https://t.me/LeonCMS" target="_blank" class="cta-button">Order Now</a>
+                    </div>
+                    <div class="pricing-card popular">
+                        <h3>Ultimate Launch</h3>
+                        <p class="price">$60</p>
+                        <ul>
+                            <li>1 CryptoMoonShots Post</li>
+                            <li>CMS Hot Rank 1 Push</li>
+                            <li>Post in 45 Subreddits</li>
+                            <li>45 Upvotes per post</li>
+                        </ul>
+                        <a href="https://t.me/LeonCMS" target="_blank" class="cta-button">Order Now</a>
+                    </div>
+                    <div class="pricing-card">
+                        <h3>Custom Flight Path</h3>
+                        <p class="price flexible">Flexible</p>
+                        <ul>
+                            <li class="custom-item"><span>100 Upvotes</span> <strong>$2</strong></li>
+                            <li class="custom-item"><span>Standard Subreddit Post</span> <strong>$0.50</strong></li>
+                            <li class="custom-item"><span>CryptoMoonShots Post</span> <strong>$16</strong></li>
+                            <li class="custom-item"><span>Comment Engagement</span> <strong>$0.30+</strong></li>
+                        </ul>
+                        <a href="https://t.me/LeonCMS" target="_blank" class="cta-button">Get a Quote</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="faq" class="faq container">
+            <h2>Frequently Asked <span class="highlight">Questions</span></h2>
+            <details class="faq-item">
+                <summary>Is this promotion method safe?</summary>
+                <p>Absolutely. We strictly adhere to Reddit's guidelines and focus on organic-looking engagement to ensure the safety and reputation of your project.</p>
+            </details>
+            <details class="faq-item">
+                <summary>How quickly will I see results?</summary>
+                <p>Campaigns typically begin within 1 hours. You will see posts going live and engagement starting shortly after, with peak visibility achieved as posts begin to trend.</p>
+            </details>
+            <details class="faq-item">
+                <summary>Can I choose the subreddits?</summary>
+                <p>Yes! We provide a list of high-traffic, relevant crypto subreddits, and you can customize the list based on your project's specific target audience.</p>
+            </details>
+        </section>
+
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <h2>Ready to ignite your crypto project on <span class="highlight">Reddit?</span></h2>
+            <a href="https://t.me/LeonCMS" target="_blank" class="cta-button">LAUNCH YOUR PROJECT</a>
+            <p>© 2025 | All Rights Reserved | Contact: Telegram @LeonCMS</p>
+        </div>
+    </footer>
+
+</body>
+</html>
